@@ -1,0 +1,10 @@
+% Facts
+student(anchal).
+student(rahul).
+
+course(anchal, aiml).
+course(rahul, database).
+
+% Rules for prediction
+studies_ai(X) :- course(X, aiml).
+studies_database(X) :- course(X, database).
