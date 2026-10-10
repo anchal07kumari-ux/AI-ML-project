@@ -1,0 +1,9 @@
+% direction connect
+road(delhi,agra).
+road(agra,gwalior).
+road(gwalior,bhopal).
+road(delhi,jaipur).
+road(jaipur,ajmer).
+travel(X,Z):-
+    road(X,Z),
+    travel(Z,X).
