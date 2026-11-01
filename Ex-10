@@ -1,0 +1,37 @@
+value(1, 2).
+value(2, 5).
+value(3, 4).
+value(4, 8).
+value(5, 6).
+
+hill_climb(X, Best) :-
+    value(X, V),
+    findall(Y, (value(Y, V2), V2 > V), List),
+    (List = [] -> Best = X;
+    max_value(List, Next),
+    hill_climb(Next, Best)).
+
+max_value([H|T], Best) :-
+    value(H, V),
+    max_value_helper(T, H, V, Best).
+
+max_value_helper([], Best, _, Best).
+max_value_helper([H|T], Current, V, Best) :-
+    value(H, V2),
+    (V2 > V ->
+        max_value_helper(T, H, V2, Best);
+        max_value_helper(T, Current, V, Best)).
+
+simulated_annealing(X, 0, X).
+simulated_annealing(X, T, Best) :-
+    T > 0,
+    value(X, V),
+    Next is X + 1,
+    (value(Next, V2) ->
+        (V2 > V -> New = Next;
+         random(R),
+         P is exp((V2 - V) / T),
+         (R < P -> New = Next; New = X))
+    ; New = X),
+    T1 is T - 1,
+    simulated_annealing(New, T1, Best).
