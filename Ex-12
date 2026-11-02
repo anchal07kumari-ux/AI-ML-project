@@ -1,0 +1,13 @@
+safe(_, []).
+safe(Q, [H|T]) :-
+    Q =\= H,
+    abs(Q-H) =\= 1,
+    safe(Q, T).
+
+queens(0, []).
+queens(N, [Q|Rest]) :-
+    N > 0,
+    N1 is N-1,
+    queens(N1, Rest),
+    between(1, N, Q),
+    safe(Q, Rest).
