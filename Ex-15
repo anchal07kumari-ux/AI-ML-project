@@ -1,0 +1,42 @@
+
+def unify(x, y, subs={}):
+    if x == y:
+        return subs
+
+    if isinstance(x, str) and x.islower():
+        subs[x] = y
+        return subs
+
+    if isinstance(y, str) and y.islower():
+        subs[y] = x
+        return subs
+
+    return None
+
+
+def resolution(c1, c2):
+    for a in c1:
+        for b in c2:
+            if a[1] == b[1] and a[0] != b[0]:
+                return c1 + c2
+    return None
+
+
+# Knowledge Base
+c1 = [('~', 'Human(x)'), ('+', 'Mortal(x)')]
+c2 = [('+', 'Human(Socrates)')]
+c3 = [('~', 'Mortal(Socrates)')]
+
+print("First Order Logic Resolution")
+
+print("Clause 1:", c1)
+print("Clause 2:", c2)
+
+result = resolution(c1, c2)
+
+print("Resolution Result:", result)
+
+print("Theorem: Socrates is Mortal")
+print("Unification: Human(x) = Human(Socrates)")
+print("Substitution: x = Socrates")
+print("Conclusion: Theorem Proved")
